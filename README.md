@@ -26,7 +26,7 @@ Proyek ini adalah *Proof of Concept* (PoC) untuk merancang infrastruktur jaringa
 *   **Load Balancing (PoC):** Penyiapan *node* HAProxy untuk distribusi beban trafik. *(Catatan: Karena keterbatasan sumber daya komputasi/hardware constraints pada lingkungan simulasi lokal, pengujian load balancing HAProxy tidak dilakukan secara ekstensif).*
 
 ### Topologi Jaringan
-![Topologi GNS3](perusahaan-game-gns3\Topologi-Jaringan.png)
+![Topologi GNS3](perusahaan-game-gns3/Topologi-Jaringan.png)
 *(Tambahkan penjelasan singkat 1-2 kalimat di bawah gambar jika perlu)*
 
 ---
@@ -44,7 +44,7 @@ Merancang dan mensimulasikan infrastruktur jaringan modern untuk lingkungan rite
 *   **IoT Automation:** Mengonfigurasi dan menghubungkan berbagai perangkat sensor ritel (IoT) ke dalam satu ekosistem jaringan terpusat.
 
 ### Topologi Jaringan
-![Topologi Packet Tracer](ritel-pintar-packet-tracer\Topologi-Jaringan.png)
+![Topologi Packet Tracer](ritel-pintar-packet-tracer/Topologi-Jaringan.png)
 *(Tambahkan penjelasan singkat 1-2 kalimat di bawah gambar jika perlu)*
 
 ---
