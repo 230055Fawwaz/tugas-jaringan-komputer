@@ -56,4 +56,4 @@ Setiap proyek memiliki foldernya masing-masing. Di dalam folder tersebut, Anda d
 *   Folder `configs/` yang berisi teks konfigurasi mentah (*raw config*) dari perangkat jaringan yang digunakan.
 
 ## 📬 Kontak
-Mari terhubung di [LinkedIn](masukkan-link-linkedin-kamu-di-sini) untuk berdiskusi lebih lanjut mengenai jaringan dan keamanan siber!
+Mari terhubung di [LinkedIn](https://www.linkedin.com/in/fawwaz-yaqzhan-820aa3299/) untuk berdiskusi lebih lanjut mengenai jaringan dan keamanan siber!
