@@ -1,0 +1,33 @@
+enable
+configure terminal
+hostname Access-Switch-1
+
+! Daftarkan VLAN
+vlan 10
+name POS_Kasir
+exit
+
+! Konfigurasi Port Trunk yang mengarah kembali ke Core Switch
+interface gigabitEthernet 1/0/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+description Jalur_ke_CoreSwitch
+exit
+
+! Alokasikan Port untuk PC Kasir
+interface range gigabitEthernet 1/0/2 - 5
+switchport mode access
+switchport access vlan 10
+exit
+
+! Mematikan port rentang yang tidak digunakan
+interface range gigabitEthernet 1/0/6 - 24
+shutdown
+exit
+
+interface range gigabitEthernet 1/0/2 - 5
+spanning-tree portfast
+exit
+
+exit
+copy running-config startup-config

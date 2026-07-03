@@ -1,0 +1,49 @@
+enable
+configure terminal
+
+! Pengecualian IP (IP Excluded) agar tidak dibagikan ke client
+ip dhcp excluded-address 192.168.10.1 192.168.10.10
+ip dhcp excluded-address 192.168.20.1 192.168.20.10
+ip dhcp excluded-address 192.168.40.1 192.168.40.10
+ip dhcp excluded-address 192.168.60.1 192.168.60.10
+ip dhcp excluded-address 192.168.70.1 192.168.70.10
+!(Catatan: VLAN 30 Server & VLAN 50 CCTV tidak dibuatkan pool karena memakai IP Static)
+
+! Membuat DHCP Pool tiap VLAN 
+! Pool POS/Kasir
+ip dhcp pool POOL_KASIR
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+dns-server 8.8.8.8
+exit
+
+! Pool Admin
+ip dhcp pool POOL_ADMIN
+network 192.168.20.0 255.255.255.0
+default-router 192.168.20.1
+dns-server 8.8.8.8
+exit
+
+! Pool IoT Inventaris
+ip dhcp pool POOL_IOT
+network 192.168.40.0 255.255.255.0
+default-router 192.168.40.1
+dns-server 8.8.8.8
+exit
+
+! Pool WiFi Staff
+ip dhcp pool POOL_STAFF
+network 192.168.60.0 255.255.255.0
+default-router 192.168.60.1
+dns-server 8.8.8.8
+exit
+
+! Pool WiFi Pelanggan
+ip dhcp pool POOL_PELANGGAN
+network 192.168.70.0 255.255.255.0
+default-router 192.168.70.1
+dns-server 8.8.8.8
+exit
+
+exit
+copy running-config startup-config

@@ -1,0 +1,32 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - BANDUNG CDN ROUTER (AS 300)
+! ==========================================================
+
+enable
+configure terminal
+
+! ----------------------------------------------------------
+! 1. CLEANUP CONFIGURATION
+! ----------------------------------------------------------
+! Menghapus default route statis lama
+no ip route 0.0.0.0 0.0.0.0 198.51.100.1
+
+! ----------------------------------------------------------
+! 2. BGP ROUTING CONFIGURATION (AS 300)
+! ----------------------------------------------------------
+router bgp 300
+ bgp log-neighbor-changes
+
+ ! --- Neighbors / Peering Partners ---
+ neighbor 198.51.100.1 remote-as 200  ! Peering ke Internet Router
+
+ ! --- Advertised Networks ---
+ network 172.16.10.0 mask 255.255.255.0 ! Menyebarkan jaringan LAN CDN ke luar
+
+exit
+exit
+
+! ----------------------------------------------------------
+! 3. SAVE CONFIGURATION
+! ----------------------------------------------------------
+copy running-config startup-config

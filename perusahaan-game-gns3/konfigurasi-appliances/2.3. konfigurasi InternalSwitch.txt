@@ -1,0 +1,53 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - INTERNALSWITCH (L2 SWITCH)
+! ==========================================================
+
+enable
+configure terminal
+hostname InternalSwitch
+
+! Catatan: Karena ini switch Layer 2 untuk VLAN 20, 
+! perintah 'ip routing' bawaan dihilangkan agar mode L2 berjalan murni.
+no ip routing
+
+! ----------------------------------------------------------
+! 1. VLAN DATABASE CONFIGURATION
+! ----------------------------------------------------------
+vlan 20
+ name SERVER_FARM_BACKEND
+exit
+
+! ----------------------------------------------------------
+! 2. LAYER 2 PORT CONFIGURATION
+! ----------------------------------------------------------
+! Port yang terhubung ke LoadBalancer
+interface GigabitEthernet0/0
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ no shutdown
+exit
+
+! Port yang terhubung ke ServerGame
+interface GigabitEthernet0/1
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ no shutdown
+exit
+
+! ----------------------------------------------------------
+! 3. SWITCH MANAGEMENT CONFIGURATION (SVI)
+! ----------------------------------------------------------
+interface Vlan20
+ ip address 10.10.20.2 255.255.255.0
+ no shutdown
+exit
+
+ip default-gateway 10.10.20.1
+
+! ----------------------------------------------------------
+! 4. SAVE CONFIGURATION
+! ----------------------------------------------------------
+exit
+copy running-config startup-config

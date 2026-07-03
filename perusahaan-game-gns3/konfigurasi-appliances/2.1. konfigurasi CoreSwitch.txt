@@ -1,0 +1,70 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - CORESWITCH (L3 SWITCH)
+! ==========================================================
+
+enable
+configure terminal
+hostname CoreSwitch
+
+! ----------------------------------------------------------
+! 1. CLEANUP CONFIGURATION
+! ----------------------------------------------------------
+! Menghapus default route statis lama
+no ip route 0.0.0.0 0.0.0.0 10.0.0.9
+
+! ----------------------------------------------------------
+! 2. VLAN & LAYER 2 PORT CONFIGURATION
+! ----------------------------------------------------------
+! Port ke Server Farm Area (VLAN 10)
+interface GigabitEthernet0/1
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+exit
+
+! Port ke Management Area (VLAN 30) -> Menuju ManagementSwitch Gi0/0
+interface GigabitEthernet0/2
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ no shutdown
+exit
+
+! Port ke Data Area (VLAN 40)
+interface GigabitEthernet0/3
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ no shutdown
+exit
+
+! ----------------------------------------------------------
+! 3. STATIC ROUTING (FIX: VLAN 20 ACCESS VIA LOAD BALANCER)
+! ----------------------------------------------------------
+! Rute statis menuju VLAN 20 via IP luar Load Balancer
+ip route 10.10.20.0 255.255.255.0 10.10.10.10
+
+! ----------------------------------------------------------
+! 4. OSPF ROUTING CONFIGURATION (INTERNAL)
+! ----------------------------------------------------------
+router ospf 1
+ router-id 1.1.1.1
+
+ ! --- Advertised Networks ---
+ network 10.0.0.8 0.0.0.3 area 0     ! Jaringan penghubung ke FortiGate
+ network 10.10.10.0 0.0.0.255 area 0 ! Server Farm Area
+ network 10.10.30.0 0.0.0.255 area 0 ! Management Area
+ network 10.10.40.0 0.0.0.255 area 0 ! Data Area
+ ! Catatan: VLAN 20 berada di belakang LoadBalancer, tidak langsung di-OSPF-kan
+
+ ! --- Route Redistribution ---
+ redistribute static subnets         ! Menyebarkan rute statis VLAN 20 ke OSPF (FortiGate)
+exit
+
+! ----------------------------------------------------------
+! 5. SAVE CONFIGURATION
+! ----------------------------------------------------------
+exit
+exit
+copy running-config startup-config

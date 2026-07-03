@@ -1,0 +1,52 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - SERVERFARMSWITCH (L2 SWITCH)
+! ==========================================================
+
+enable
+configure terminal
+hostname ServerFarmSwitch
+
+! Catatan: Karena switch ini berfungsi di Layer 2 untuk VLAN 10,
+! perintah 'ip routing' dinonaktifkan agar tidak bertindak sebagai L3 router.
+no ip routing
+
+! ----------------------------------------------------------
+! 1. VLAN DATABASE CONFIGURATION
+! ----------------------------------------------------------
+vlan 10
+ name SERVER_FARM_FRONTEND
+exit
+
+! ----------------------------------------------------------
+! 2. LAYER 2 PORT CONFIGURATION
+! ----------------------------------------------------------
+! Port Uplink yang terhubung ke CoreSwitch (Gi0/1)
+interface GigabitEthernet0/0
+ switchport mode access
+ switchport access vlan 10
+ no shutdown
+exit
+
+! Port Downlink yang terhubung ke LoadBalancer
+interface GigabitEthernet0/1
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+exit
+
+! ----------------------------------------------------------
+! 3. SWITCH MANAGEMENT CONFIGURATION (SVI)
+! ----------------------------------------------------------
+interface Vlan10
+ ip address 10.10.10.2 255.255.255.0
+ no shutdown
+exit
+
+ip default-gateway 10.10.10.1
+
+! ----------------------------------------------------------
+! 4. SAVE CONFIGURATION
+! ----------------------------------------------------------
+exit
+copy running-config startup-config

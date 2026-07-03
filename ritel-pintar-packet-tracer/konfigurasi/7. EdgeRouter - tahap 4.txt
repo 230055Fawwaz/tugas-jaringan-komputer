@@ -1,0 +1,62 @@
+enable
+configure terminal
+
+! MEMBERSIHKAN KONFIGURASI LAMA YANG SALAH ALAMAT
+interface gigabitEthernet 0/0/0
+ no ip nat outside
+exit
+no ip route 0.0.0.0 0.0.0.0
+exit
+
+configure terminal
+
+! KONFIGURASI INTERFACE WAN BARU (MENGARAH KE CLOUD-PT ETH6)
+interface gigabitEthernet 0/0/1
+ ip address 10.10.10.2 255.255.255.0
+ ip nat outside
+ no shutdown
+exit
+
+
+! DAFTARKAN SEMUA SUB-INTERFACE VLAN SEBAGAI JALUR DALAM (NAT INSIDE)
+interface gigabitEthernet 0/0/0.10
+ ip nat inside
+exit
+interface gigabitEthernet 0/0/0.20
+ ip nat inside
+exit
+interface gigabitEthernet 0/0/0.30
+ ip nat inside
+exit
+interface gigabitEthernet 0/0/0.40
+ ip nat inside
+exit
+interface gigabitEthernet 0/0/0.50
+ ip nat inside
+exit
+interface gigabitEthernet 0/0/0.60
+ ip nat inside
+exit
+interface gigabitEthernet 0/0/0.70
+ ip nat inside
+exit
+
+
+! MEMBUAT DATA ACCESS LIST UNTUK KELAYAKAN INTERNET (NAT MATCHING)
+ip access-list extended JALUR_INTERNET
+ permit ip 192.168.10.0 0.0.0.255 any
+ permit ip 192.168.20.0 0.0.0.255 any
+ permit ip 192.168.60.0 0.0.0.255 any
+ permit ip 192.168.70.0 0.0.0.255 any
+exit
+
+
+! MENGAKTIFKAN TRANSLASI ALAMAT (NAT OVERLOAD / PAT) PADA PORT OUTSIDE
+ip nat inside source list JALUR_INTERNET interface gigabitEthernet 0/0/1 overload
+
+
+! MEMBUAT DEFAULT ROUTE UNTUK GERBANG KELUAR TRAFIK WAN
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+
+exit
+copy running-config startup-config

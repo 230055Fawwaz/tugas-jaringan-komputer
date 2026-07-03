@@ -1,0 +1,20 @@
+📶 1. AP-Staff (VLAN 60)
+SSID: WiFi-Staff
+Channel: 1
+Authentication: WPA2-PSK
+Encryption: AES
+Passphrase: StaffSecure123
+
+📶 2. AP-IoT (VLAN 40)
+SSID: WiFi-IoT
+Channel: 6
+Authentication: WPA2-PSK
+Encryption: AES
+Passphrase: IoTSecure456
+
+📶 3. AP-Pelanggan (VLAN 70)
+SSID: WiFi-Pelanggan
+Channel: 11
+Authentication: WPA2-PSK (atau pilih Disabled jika ingin WiFi terbuka/tanpa sandi)
+Encryption: AES
+Passphrase: Pelanggan789

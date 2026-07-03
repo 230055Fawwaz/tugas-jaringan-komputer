@@ -1,0 +1,49 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - DATABASESWITCH (L2 SWITCH)
+! ==========================================================
+
+enable
+configure terminal
+hostname DatabaseSwitch
+
+! ----------------------------------------------------------
+! 1. VLAN DATABASE CONFIGURATION
+! ----------------------------------------------------------
+vlan 40
+ name DATABASE_AREA
+exit
+
+! ----------------------------------------------------------
+! 2. LAYER 2 PORT CONFIGURATION
+! ----------------------------------------------------------
+! Port trunk/access dari CoreSwitch (Gi0/3)
+interface GigabitEthernet0/0
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ no shutdown
+exit
+
+! Port access ke arah ServerData
+interface GigabitEthernet0/1
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ no shutdown
+exit
+
+! ----------------------------------------------------------
+! 3. SWITCH MANAGEMENT CONFIGURATION (SVI)
+! ----------------------------------------------------------
+interface Vlan40
+ ip address 10.10.40.2 255.255.255.0
+ no shutdown
+exit
+
+ip default-gateway 10.10.40.1
+
+! ----------------------------------------------------------
+! 4. SAVE CONFIGURATION
+! ----------------------------------------------------------
+exit
+copy running-config startup-config

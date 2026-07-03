@@ -1,0 +1,35 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - BANDUNG CDN SERVER CONFIG
+! ==========================================================
+
+! ----------------------------------------------------------
+! 1. NETWORK INTERFACE CONFIGURATION (/etc/network/interfaces)
+! ----------------------------------------------------------
+#
+# This is a sample network config, please uncomment lines to configure the network
+#
+
+# Uncomment this line to load custom interface files
+# source /etc/network/interfaces.d/*
+
+# Static config for eth0
+auto eth0
+iface eth0 inet static
+	address 172.16.10.10
+	netmask 255.255.255.0
+	gateway 172.16.10.1
+
+# DHCP config for eth0
+#auto eth0
+#iface eth0 inet dhcp
+#	hostname Toolbox-1
+
+
+! ----------------------------------------------------------
+! 2. WEB SERVER SIMULATION & TESTING COMMANDS
+! ----------------------------------------------------------
+# Membuat halaman index untuk simulasi konten Server CDN
+echo "Selamat Datang di Server CDN Bandung" > /var/www/html/index.html
+
+# Pengujian respons web server lokal
+curl localhost

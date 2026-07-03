@@ -1,0 +1,35 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - MANAGEMENT SERVER CONFIG
+! ==========================================================
+
+! ----------------------------------------------------------
+! 1. NETWORK INTERFACE CONFIGURATION (/etc/network/interfaces)
+! ----------------------------------------------------------
+#
+# This is a sample network config, please uncomment lines to configure the network
+#
+
+# Uncomment this line to load custom interface files
+# source /etc/network/interfaces.d/*
+
+# Static config for eth0 (Management Area Subnet)
+auto eth0
+iface eth0 inet static
+	address 10.10.30.10
+	netmask 255.255.255.0
+	gateway 10.10.30.1
+
+# DHCP config for eth0
+#auto eth0
+#iface eth0 inet dhcp
+#	hostname Toolbox-1
+
+
+! ----------------------------------------------------------
+! 2. WEB SERVER SIMULATION & TESTING COMMANDS
+! ----------------------------------------------------------
+# Membuat halaman index untuk simulasi konten Server Management
+echo "Selamat Datang di Server Management (Net Admin Area)" > /var/www/html/index.html
+
+# Pengujian respons web server lokal
+curl localhost

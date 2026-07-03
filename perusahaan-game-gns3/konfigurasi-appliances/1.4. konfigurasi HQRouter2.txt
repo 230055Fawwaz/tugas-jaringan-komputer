@@ -1,0 +1,46 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - HQROUTER2 (AS 100)
+! ==========================================================
+
+enable
+configure terminal
+hostname HQRouter2
+
+! ----------------------------------------------------------
+! 1. INTERFACE CONFIGURATION
+! ----------------------------------------------------------
+! Catatan: Pastikan interface sudah dikonfigurasi IP berikut
+! sebelum menjalankan routing (sesuai parameter BGP & OSPF):
+! - Interface ke Internet (ISP): ip address 203.0.113.6 255.255.255.252
+! - Interface ke FortiGate (Internal): ip address 10.0.0.5 255.255.255.252
+
+! ----------------------------------------------------------
+! 2. CLEANUP CONFIGURATION
+! ----------------------------------------------------------
+! Menghapus routing statis lama agar tidak terjadi konflik
+no ip route 0.0.0.0 0.0.0.0 203.0.113.5
+no ip route 10.0.0.0 255.0.0.0 10.0.0.6
+
+! ----------------------------------------------------------
+! 3. OSPF ROUTING CONFIGURATION (INTERNAL)
+! ----------------------------------------------------------
+router ospf 1
+ network 10.0.0.4 0.0.0.3 area 0
+ default-information originate always
+exit
+
+! ----------------------------------------------------------
+! 4. BGP ROUTING CONFIGURATION (EXTERNAL - AS 100)
+! ----------------------------------------------------------
+router bgp 100
+ bgp log-neighbor-changes
+ neighbor 203.0.113.5 remote-as 200
+ redistribute ospf 1 match internal external 1 external 2
+exit
+
+! ----------------------------------------------------------
+! 5. SAVE CONFIGURATION
+! ----------------------------------------------------------
+exit
+exit
+copy running-config startup-config

@@ -1,0 +1,54 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - LOAD BALANCER CONFIG (HAPROXY & IP TABLES)
+! ==========================================================
+
+! ----------------------------------------------------------
+! 1. NETWORK INTERFACE CONFIGURATION (/etc/network/interfaces)
+! ----------------------------------------------------------
+# --- Interface Kaki Luar (Menuju ServerFarmSwitch / VLAN 10) ---
+auto eth0
+iface eth0 inet static
+	address 10.10.10.10
+	netmask 255.255.255.0
+	gateway 10.10.10.1
+
+# --- Interface Kaki Dalam (Menuju InternalSwitch / VLAN 20) ---
+auto eth1
+iface eth1 inet static
+	address 10.10.20.1
+	netmask 255.255.255.0
+
+# --- Otomatisasi Injeksi Konfigurasi HAProxy via Post-Up ---
+post-up echo "defaults" > /etc/haproxy/haproxy.cfg
+post-up echo "    log     global" >> /etc/haproxy/haproxy.cfg
+post-up echo "    mode    http" >> /etc/haproxy/haproxy.cfg
+post-up echo "    timeout connect 5000ms" >> /etc/haproxy/haproxy.cfg
+post-up echo "    timeout client  50000ms" >> /etc/haproxy/haproxy.cfg
+post-up echo "    timeout server  50000ms" >> /etc/haproxy/haproxy.cfg
+post-up echo "" >> /etc/haproxy/haproxy.cfg
+post-up echo "frontend game_front" >> /etc/haproxy/haproxy.cfg
+post-up echo "    bind 10.10.10.10:80" >> /etc/haproxy/haproxy.cfg
+post-up echo "    mode http" >> /etc/haproxy/haproxy.cfg
+post-up echo "    default_backend game_back" >> /etc/haproxy/haproxy.cfg
+post-up echo "" >> /etc/haproxy/haproxy.cfg
+post-up echo "backend game_back" >> /etc/haproxy/haproxy.cfg
+post-up echo "    mode http" >> /etc/haproxy/haproxy.cfg
+post-up echo "    balance roundrobin" >> /etc/haproxy/haproxy.cfg
+post-up echo "    server server_utama 10.10.20.11:80 check" >> /etc/haproxy/haproxy.cfg
+
+# --- Menjalankan Daemon HAProxy & IP Forwarding ---
+post-up haproxy -D -f /etc/haproxy/haproxy.cfg
+post-up echo 1 > /proc/sys/net/ipv4/ip_forward
+
+
+! ----------------------------------------------------------
+! 2. SERVICE MANAGEMENT & LINUX NETWORKING (MANUAL/RUNTIME)
+! ----------------------------------------------------------
+# Menjalankan / memuat ulang layanan HAProxy
+systemctl restart haproxy
+
+# Mengaktifkan fitur IP Forwarding (Kernel level)
+sysctl -w net.ipv4.ip_forward=1
+
+# Mengaktifkan Masquerade (NAT) pada interface eth0 (VLAN 10)
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE

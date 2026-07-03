@@ -1,0 +1,53 @@
+! ==========================================================
+! PROYEK MINI JARINGAN KOMPUTER - HQROUTER1 (AS 100)
+! ==========================================================
+
+enable
+configure terminal
+hostname HQRouter1
+
+! ----------------------------------------------------------
+! 1. INTERFACE CONFIGURATION
+! ----------------------------------------------------------
+! Antarmuka ke arah Internet (ISP)
+interface GigabitEthernet0/0
+ ip address 203.0.113.2 255.255.255.252
+ no shutdown
+exit
+
+! Antarmuka ke arah FortiGate (Internal)
+interface GigabitEthernet0/1
+ ip address 10.0.0.1 255.255.255.252
+ ip ospf network point-to-point
+ no shutdown
+exit
+
+! ----------------------------------------------------------
+! 2. CLEANUP CONFIGURATION
+! ----------------------------------------------------------
+! Menghapus routing statis lama agar tidak terjadi konflik
+no ip route 0.0.0.0 0.0.0.0 203.0.113.1
+no ip route 10.0.0.0 255.0.0.0 10.0.0.2
+
+! ----------------------------------------------------------
+! 3. OSPF ROUTING CONFIGURATION (INTERNAL)
+! ----------------------------------------------------------
+router ospf 1
+ network 10.0.0.0 0.0.0.3 area 0
+ default-information originate always
+exit
+
+! ----------------------------------------------------------
+! 4. BGP ROUTING CONFIGURATION (EXTERNAL - AS 100)
+! ----------------------------------------------------------
+router bgp 100
+ bgp log-neighbor-changes
+ neighbor 203.0.113.1 remote-as 200
+ redistribute ospf 1 match internal external 1 external 2
+exit
+
+! ----------------------------------------------------------
+! 5. SAVE CONFIGURATION
+! ----------------------------------------------------------
+end
+copy running-config startup-config

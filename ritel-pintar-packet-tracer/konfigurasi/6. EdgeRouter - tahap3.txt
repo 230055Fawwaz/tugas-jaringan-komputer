@@ -1,0 +1,42 @@
+enable
+configure terminal
+
+! Membuat Rule Firewall Pelanggan
+ip access-list extended FIREWALL_PELANGGAN
+ deny ip 192.168.70.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny ip 192.168.70.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny ip 192.168.70.0 0.0.0.255 192.168.30.0 0.0.0.255
+ deny ip 192.168.70.0 0.0.0.255 192.168.40.0 0.0.0.255
+ deny ip 192.168.70.0 0.0.0.255 192.168.50.0 0.0.0.255
+ permit ip any any
+exit
+
+! Memasang Rule ke Sub-interface VLAN 70
+interface gigabitEthernet 0/0/0.70
+ ip access-group FIREWALL_PELANGGAN in
+exit
+
+! Membuat Rule Firewall IoT
+ip access-list extended FIREWALL_IOT
+ permit ip 192.168.40.0 0.0.0.255 host 192.168.30.2
+ deny ip 192.168.40.0 0.0.0.255 any
+exit
+
+! Memasang Rule ke Sub-interface VLAN 40
+interface gigabitEthernet 0/0/0.40
+ ip access-group FIREWALL_IOT in
+exit
+
+! Membuat Rule Firewall CCTV
+ip access-list extended FIREWALL_CCTV
+ permit ip 192.168.50.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny ip 192.168.50.0 0.0.0.255 any
+exit
+
+! Memasang Rule ke Sub-interface VLAN 50
+interface gigabitEthernet 0/0/0.50
+ ip access-group FIREWALL_CCTV in
+exit
+
+exit
+copy running-config startup-config
