@@ -13,18 +13,58 @@ Semua proyek di bawah ini dibangun sebagai **Proof of Concept (PoC)** dengan fok
 ---
 
 ## 1. Enterprise Game Server Architecture
-**Tools:** GNS3, Fortigate (Firewall), HAProxy (Load Balancer), VLAN, CDN Server  
-**Folder:** `/perusahaan-game-gns3`  
-**Team Members:** Fawwaz Yaqzhan & Stan Fredheric
+[![GNS3](https://img.shields.io/badge/Simulated_with-GNS3-blue?style=flat-square&logo=gns3)](https://www.gns3.com/)
+[![Status](https://img.shields.io/badge/Project-Proof_of_Concept-orange?style=flat-square)]()
 
-### Deskripsi Proyek
-Proyek ini adalah *Proof of Concept* (PoC) untuk merancang infrastruktur jaringan server *game online* internasional. Fokus utama dari arsitektur ini adalah penerapan keamanan *multi-tier* dengan memisahkan secara logis antara server publik (Game & CDN) dan server internal (Data User).
+Proyek ini merupakan **Proof of Concept (PoC)** rancangan infrastruktur jaringan untuk perusahaan game online berskala internasional. Dirancang sebagai tugas mata kuliah Jaringan Komputer, proyek ini berfokus pada optimalisasi pengiriman konten game global serta penguatan keamanan siber terhadap ancaman digital.
 
-### Sorotan Arsitektur & Konfigurasi
-*   **Security Perimeter:** Implementasi Fortigate Firewall untuk memfilter trafik masuk dan melindungi infrastruktur internal.
-*   **Multi-Tier Architecture:** Pemisahan server data pengguna dari server game publik untuk meminimalisir risiko kebocoran data.
-*   **Content Delivery:** Integrasi *single-node* CDN untuk menyimulasikan distribusi konten (aset game) ke pengguna.
-*   **Load Balancing (PoC):** Penyiapan *node* HAProxy untuk distribusi beban trafik. *(Catatan: Karena keterbatasan sumber daya komputasi/hardware constraints pada lingkungan simulasi lokal, pengujian load balancing HAProxy tidak dilakukan secara ekstensif).*
+---
+
+## 🎯 Fokus Utama
+1. **Content Delivery Network (CDN):** Mempersingkat waktu pengiriman konten (*low latency*) kepada pemain di berbagai belahan dunia.
+2. **Keamanan Siber:** Penerapan mitigasi serangan siber (seperti DDoS) yang sering menyasar industri *gaming*.
+
+---
+
+## 🏗️ Arsitektur Jaringan
+Infrastruktur ini mengadopsi arsitektur jaringan hierarkis dan redundan untuk memastikan performa tinggi dan *high availability*:
+* **Penerapan VLAN:** Memisahkan trafik data secara logis berdasarkan fungsi dan departemen demi efisiensi dan keamanan.
+* **Redundant Router & Core Switch:** Implementasi rute utama ganda untuk menciptakan redundansi, meminimalisir *single point of failure*, dan mengurangi *downtime*.
+* **Access Switch:** Menghubungkan perangkat akhir ke dalam jaringan inti.
+
+---
+
+## 🛠️ Tools & Perangkat Perangkat (Appliances)
+Simulasi jaringan ini dibangun sepenuhnya menggunakan **GNS3** dengan detail perangkat sebagai berikut:
+| Kategori | Perangkat / Appliances |
+| :--- | :--- |
+| **Security** | Firewall (Fortigate Next-Generation Firewall) |
+| **Traffic Control** | Load Balancer (HAProxy) |
+| **Routing & Switching** | Cisco Routers & Cisco Layer 3 Switches |
+| **Compute & Storage** | Servers (CDN, Game, & Data Servers via Net Toolbox) |
+| **End Devices** | Virtual PCs (VPCs) |
+
+---
+
+## 🌟 Sorotan Fitur & Implementasi
+* **Next-Generation Firewall (NGFW):** Implementasi Fortigate Firewall di garda depan untuk menyaring trafik masuk, mendeteksi ancaman, dan melindungi infrastruktur internal.
+* **Segregasi Server:** Memisahkan *Game Server* (menangani logika *in-game* seperti perhitungan *damage*) dari *Data Server* (penyimpan data sensitif pemain) untuk meminimalisir risiko kebocoran data.
+* **Akselerasi Konten (CDN):** Integrasi CDN untuk *caching* aset game terdekat dari sisi pemain guna memangkas *ping* dan *latency*.
+* **Beban Seimbang (Load Balancing):** Distribusi trafik secara merata ke klaster server menggunakan HAProxy untuk menjaga stabilitas layanan saat beban tinggi.
+
+---
+
+## ⚠️ Tantangan & Keterbatasan (Known Issues)
+Karena keterbatasan spesifikasi perangkat keras (*hardware*) pada *host* lokal yang menjalankan simulator GNS3, terdapat beberapa penyesuaian pada model PoC ini:
+1.  **Pengujian Load Balancer:** Fitur HAProxy belum dapat diuji secara maksimal karena keterbatasan sumber daya komputasi laptop.
+2.  **Skalabilitas CDN:** Topologi saat ini baru mengimplementasikan satu buah *node* CDN dari skenario multi-node yang direncanakan.
+
+---
+
+## 👥 Anggota Tim
+Proyek ini dikerjakan secara kolaboratif oleh:
+* [Fawwaz Yaqzhan](https://github.com/username_kamu)
+* [Stan Fredheric](https://github.com/username_stan)
 
 ### Topologi Jaringan
 ![Topologi GNS3](perusahaan-game-gns3/Topologi-Jaringan.png)
