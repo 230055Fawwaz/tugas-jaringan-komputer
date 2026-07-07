@@ -99,8 +99,8 @@ Infrastruktur ini mengadopsi metode segmentasi jaringan modern untuk efisiensi p
 Simulasi jaringan ini dibangun sepenuhnya menggunakan **Cisco Packet Tracer** dengan detail perangkat sebagai berikut:
 | Kategori | Perangkat / Appliances | Keterangan |
 | :--- | :--- | :--- |
-| **Security & Routing** | Cisco ISR 1331 | Berfungsi sebagai Firewall, Router, dan DHCP Server |
-| **Switching** | Cisco 3650 (Layer 3) & Access Switch | Sebagai Core Switch dan pembagi segmen jaringan |
+| **Security, Routing, & DHCP** | Cisco ISR 1331 | Berfungsi sebagai Firewall, Router, dan DHCP Server |
+| **Switching** | Cisco 3650 (Layer 3) | Sebagai Core Switch, Access Switch, dan pembagi segmen jaringan |
 | **Wireless Access** | Access Point-PT | Menyediakan konektivitas nirkabel (Wi-Fi) |
 | **End Devices** | Server-PT, PC, Printer-PT, Laptop-PT | Perangkat operasional toko dan server lokal |
 | **Surveillance** | WebCam (Cisco PT Node) | Digunakan sebagai representasi kamera CCTV |
