@@ -17,6 +17,7 @@ Semua proyek di bawah ini dibangun sebagai **Proof of Concept (PoC)** dengan fok
 [![Status](https://img.shields.io/badge/Project-Proof_of_Concept-orange?style=flat-square)]()
 
 Proyek ini merupakan **Proof of Concept (PoC)** rancangan infrastruktur jaringan untuk perusahaan game online berskala internasional. Dirancang sebagai tugas mata kuliah Jaringan Komputer, proyek ini berfokus pada optimalisasi pengiriman konten game global serta penguatan keamanan siber terhadap ancaman digital.
+
 **Folder:** `/perusahaan-game-gns3`
 
 ---
@@ -78,6 +79,7 @@ Proyek ini dikerjakan secara kolaboratif oleh:
 [![Status](https://img.shields.io/badge/Project-Simulation_&_PoC-orange?style=flat-square)]()
 
 Proyek ini merupakan simulasi infrastruktur jaringan pada lingkungan **Ritel Cerdas (Smart Retail)**. Dirancang sebagai tugas mata kuliah Jaringan Komputer, proyek ini mendemonstrasikan bagaimana perangkat *Internet of Things* (IoT) dapat diintegrasikan secara aman ke dalam jaringan korporat ritel tanpa mengorbankan privasi data internal perusahaan.
+
 **Folder:** `/ritel-pintar--packet-tracer`
 
 ---
