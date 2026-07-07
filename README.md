@@ -15,7 +15,9 @@ Semua proyek di bawah ini dibangun sebagai **Proof of Concept (PoC)** dengan fok
 ## 1. Enterprise Game Server Architecture
 [![GNS3](https://img.shields.io/badge/Simulated_with-GNS3-blue?style=flat-square&logo=gns3)](https://www.gns3.com/)
 [![Status](https://img.shields.io/badge/Project-Proof_of_Concept-orange?style=flat-square)]()
-[![DDoS Tested](https://shields.io)](https://kali.org)
+<a href="https://kali.org">
+  <img src="https://shields.io" alt="DDoS Tested">
+</a>
 
 Proyek ini merupakan **Proof of Concept (PoC)** rancangan infrastruktur jaringan untuk perusahaan game online berskala internasional. Dirancang sebagai tugas mata kuliah Jaringan Komputer, proyek ini berfokus pada optimalisasi pengiriman konten game global serta penguatan keamanan siber terhadap ancaman digital.
 
