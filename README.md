@@ -1,6 +1,6 @@
 # tugas-jaringan-komputer
 
-Repositori ini berisi kumpulan proyek simulasi arsitektur jaringan yang saya kembangkan untuk mendemonstrasikan implementasi infrastruktur IT pada skala *enterprise* dan *smart retail*. 
+Repositori ini berisi kumpulan proyek simulasi arsitektur jaringan yang saya dan kelompok saya kembangkan untuk mendemonstrasikan implementasi infrastruktur IT pada skala *enterprise* dan *smart retail*. 
 
 Semua proyek di bawah ini dibangun sebagai **Proof of Concept (PoC)** dengan fokus pada desain topologi logis, segmentasi jaringan, dan integrasi keamanan.
 
