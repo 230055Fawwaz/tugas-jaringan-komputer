@@ -65,12 +65,10 @@ Karena keterbatasan spesifikasi perangkat keras (*hardware*) pada *host* lokal y
 ## 👥 Anggota Tim
 Proyek ini dikerjakan secara kolaboratif oleh:
 * [Fawwaz Yaqzhan](https://github.com/230055Fawwaz)
-* [Stan Fredheric](https://github.com/username_stan)
+* [Stan Fredheric](https://github.com/craten54)
 
 ### Topologi Jaringan
 ![Topologi GNS3](perusahaan-game-gns3/Topologi-Jaringan.png)
-
-*(Tambahkan penjelasan singkat 1-2 kalimat di bawah gambar jika perlu)*
 
 ---
 
@@ -133,8 +131,6 @@ Proyek ini dikerjakan secara kolaboratif oleh:
 
 ### Topologi Jaringan
 ![Topologi Packet Tracer](ritel-pintar-packet-tracer/Topologi-Jaringan.png)
-
-*(Tambahkan penjelasan singkat 1-2 kalimat di bawah gambar jika perlu)*
 
 ---
 
