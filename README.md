@@ -45,7 +45,7 @@ Simulasi jaringan ini dibangun sepenuhnya menggunakan **GNS3** dengan detail per
 | **Routing & Switching** | Cisco Routers & Cisco Layer 3 Switches |
 | **Compute & Storage** | Servers (CDN, Game, & Data Servers via Net Toolbox) |
 | **End Devices** | Virtual PCs (VPCs) |
-| **DDoS Tester** | Net Toolbox (Docker-based) |
+| **DDoS Tester** | Kali Linux inside Net Toolbox (Docker-based) |
 
 ---
 
