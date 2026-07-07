@@ -29,8 +29,8 @@ Proyek ini merupakan **Proof of Concept (PoC)** rancangan infrastruktur jaringan
 ## 🏗️ Arsitektur Jaringan
 Infrastruktur ini mengadopsi arsitektur jaringan hierarkis dan redundan untuk memastikan performa tinggi dan *high availability*:
 * **Penerapan VLAN:** Memisahkan trafik data secara logis berdasarkan fungsi dan departemen demi efisiensi dan keamanan.
-* **Redundant Router & Core Switch:** Implementasi rute utama ganda untuk menciptakan redundansi, meminimalisir *single point of failure*, dan mengurangi *downtime*.
-* **Access Switch:** Menghubungkan perangkat akhir ke dalam jaringan inti.
+* **Redundant Router:** Implementasi rute utama ganda (*dual router*) untuk menciptakan redundansi pada jalur routing utama, meminimalisir *single point of failure*, dan mengurangi *downtime*.
+* **Core Switch & Access Switch:** Menghubungkan dan mendistribusikan lalu lintas data dari jaringan inti ke perangkat akhir.
 
 ---
 
@@ -56,18 +56,19 @@ Simulasi jaringan ini dibangun sepenuhnya menggunakan **GNS3** dengan detail per
 
 ## ⚠️ Tantangan & Keterbatasan (Known Issues)
 Karena keterbatasan spesifikasi perangkat keras (*hardware*) pada *host* lokal yang menjalankan simulator GNS3, terdapat beberapa penyesuaian pada model PoC ini:
-1.  **Pengujian Load Balancer:** Fitur HAProxy belum dapat diuji secara maksimal karena keterbatasan sumber daya komputasi laptop.
-2.  **Skalabilitas CDN:** Topologi saat ini baru mengimplementasikan satu buah *node* CDN dari skenario multi-node yang direncanakan.
+1. **Pengujian Load Balancer:** Fitur HAProxy belum dapat diuji secara maksimal karena keterbatasan sumber daya komputasi laptop.
+2. **Skalabilitas & Pengujian CDN:** Topologi saat ini baru mengimplementasikan satu buah *node* CDN. Selain itu, **tidak ada node pemain (PC/VPC) yang digunakan untuk menguji CDN**. Pengujian CDN dilakukan secara terbatas melalui pengiriman data internal antara *Game Server* dan *CDN Server* untuk memastikan data dari infrastruktur perusahaan berhasil diteruskan ke CDN.
 
 ---
 
 ## 👥 Anggota Tim
 Proyek ini dikerjakan secara kolaboratif oleh:
-* [Fawwaz Yaqzhan](https://github.com/username_kamu)
+* [Fawwaz Yaqzhan](https://github.com/230055Fawwaz)
 * [Stan Fredheric](https://github.com/username_stan)
 
 ### Topologi Jaringan
 ![Topologi GNS3](perusahaan-game-gns3/Topologi-Jaringan.png)
+
 *(Tambahkan penjelasan singkat 1-2 kalimat di bawah gambar jika perlu)*
 
 ---
