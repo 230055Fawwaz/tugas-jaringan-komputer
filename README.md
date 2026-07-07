@@ -17,6 +17,7 @@ Semua proyek di bawah ini dibangun sebagai **Proof of Concept (PoC)** dengan fok
 [![Status](https://img.shields.io/badge/Project-Proof_of_Concept-orange?style=flat-square)]()
 
 Proyek ini merupakan **Proof of Concept (PoC)** rancangan infrastruktur jaringan untuk perusahaan game online berskala internasional. Dirancang sebagai tugas mata kuliah Jaringan Komputer, proyek ini berfokus pada optimalisasi pengiriman konten game global serta penguatan keamanan siber terhadap ancaman digital.
+**Folder:** `/perusahaan-game-gns3`
 
 ---
 
@@ -74,20 +75,65 @@ Proyek ini dikerjakan secara kolaboratif oleh:
 ---
 
 ## 2. Smart Retail Network & IoT Integration
-**Tools:** Cisco Packet Tracer, Cisco IOS, IoT Devices  
-**Folder:** `/ritel-pintar--packet-tracer`  
-**Team Members:** Fawwaz Yaqzhan, Daniel Bintang, & Jeremi Nicolas
+[![Packet Tracer](https://img.shields.io/badge/Simulated_with-Cisco_Packet_Tracer-blue?style=flat-square&logo=cisco)](https://www.netacad.com/)
+[![Status](https://img.shields.io/badge/Project-Simulation_&_PoC-orange?style=flat-square)]()
 
-### Deskripsi Proyek
-Merancang dan mensimulasikan infrastruktur jaringan modern untuk lingkungan ritel cerdas (*smart retail*). Proyek ini mendemonstrasikan bagaimana perangkat IoT dapat diintegrasikan secara aman ke dalam jaringan korporat menggunakan segmentasi jaringan.
+Proyek ini merupakan simulasi infrastruktur jaringan pada lingkungan **Ritel Cerdas (Smart Retail)**. Dirancang sebagai tugas mata kuliah Jaringan Komputer, proyek ini mendemonstrasikan bagaimana perangkat *Internet of Things* (IoT) dapat diintegrasikan secara aman ke dalam jaringan korporat ritel tanpa mengorbankan privasi data internal perusahaan.
+**Folder:** `/ritel-pintar--packet-tracer`
 
-### Sorotan Arsitektur & Konfigurasi
-*   **Network Segmentation (VLAN):** Mengisolasi trafik antara operasional toko, perangkat IoT, dan manajemen jaringan untuk meningkatkan keamanan.
-*   **Inter-VLAN Routing:** Mengimplementasikan metode *Router-on-a-Stick* untuk memungkinkan komunikasi antar segmen jaringan secara terkendali.
-*   **IoT Automation:** Mengonfigurasi dan menghubungkan berbagai perangkat sensor ritel (IoT) ke dalam satu ekosistem jaringan terpusat.
+---
+
+## 🎯 Fokus Utama
+1. **Integrasi IoT:** Membangun ekosistem ritel pintar dengan memanfaatkan otomatisasi perangkat.
+2. **Keamanan Trafik Jaringan:** Memisahkan akses jaringan antara pelanggan umum (publik) dengan operasional internal ritel untuk mencegah akses ilegal.
+
+---
+
+## 🏗️ Arsitektur Jaringan
+Infrastruktur ini mengadopsi metode segmentasi jaringan modern untuk efisiensi pengalamatan dan keamanan kontrol akses:
+* **Penerapan VLAN:** Memisahkan trafik data secara logis berdasarkan zona fungsi (misalnya: Jaringan Internal, Jaringan IoT, dan Jaringan Wi-Fi Pelanggan).
+* **Router-on-a-Stick (Inter-VLAN Routing):** Memanfaatkan satu jalur fisik router untuk mengarahkan lalu lintas data antar segmen VLAN yang berbeda secara efisien.
+* **Core Switch & Access Switch:** Hierarki switching menggunakan Cisco Layer 3 Switch sebagai pusat distribusi data ke switch akses.
+
+---
+
+## 🛠️ Tools & Perangkat (Appliances)
+Simulasi jaringan ini dibangun sepenuhnya menggunakan **Cisco Packet Tracer** dengan detail perangkat sebagai berikut:
+| Kategori | Perangkat / Appliances | Keterangan |
+| :--- | :--- | :--- |
+| **Security & Routing** | Cisco ISR 1331 | Berfungsi sebagai Firewall, Router, dan DHCP Server |
+| **Switching** | Cisco 3650 (Layer 3) & Access Switch | Sebagai Core Switch dan pembagi segmen jaringan |
+| **Wireless Access** | Access Point-PT | Menyediakan konektivitas nirkabel (Wi-Fi) |
+| **End Devices** | Server-PT, PC, Printer-PT, Laptop-PT | Perangkat operasional toko dan server lokal |
+| **Surveillance** | WebCam (Cisco PT Node) | Digunakan sebagai representasi kamera CCTV |
+| **IoT Peripherals** | Ceiling Fan | Representasi perangkat pintar ritel |
+
+---
+
+## 🌟 Sorotan Fitur & Implementasi
+* **Segmentasi Keamanan VLAN:** Isolasi total lalu lintas data agar setiap divisi atau zona memiliki jalur komunikasinya sendiri.
+* **Inter-VLAN Routing:** Implementasi metode *Router-on-a-Stick* untuk menjembatani komunikasi antar segmen yang diizinkan.
+* **Proteksi Wi-Fi Publik:** Mengamankan *Wireless Access Point* menggunakan enkripsi **WPA2-PSK** untuk membatasi akses pengguna.
+* **Kebijakan Firewall Ketat:** Implementasi *rules* pada Cisco ISR Firewall untuk memastikan pelanggan/pengunjung umum hanya mendapatkan akses internet dan **diblokir total** dari jaringan internal korporat ritel.
+
+---
+
+## ⚠️ Tantangan & Keterbatasan (Known Issues)
+Dalam proses pengembangan simulasi pada lingkungan Cisco Packet Tracer, terdapat kendala teknis yang ditemukan:
+* **Masalah Alokasi DHCP pada Perangkat IoT:** Perangkat IoT (*Ceiling Fan*) tidak dapat menerima penyewaan alamat IP (*IP Lease*) secara otomatis dari DHCP Server yang dikonfigurasi melalui skema *Router-on-a-Stick*. 
+* **Langkah Mitigasi yang Telah Dilakukan:** Tim telah melakukan upaya pemecahan masalah (*troubleshooting*) mulai dari mengganti jenis perangkat IoT, konfigurasi ulang *Access Point*, hingga membangun kembali *DHCP pool* pada router, namun kendala atribusi IP otomatis dari *software* simulasi ini masih bertahan.
+
+---
+
+## 👥 Anggota Tim
+Proyek ini dikerjakan secara kolaboratif oleh:
+* [Fawwaz Yaqzhan](https://github.com/230055Fawwaz)
+* [Daniel Bintang](https://github.com/username_daniel)
+* [Jeremi Nicolas](https://github.com/username_jeremi)
 
 ### Topologi Jaringan
 ![Topologi Packet Tracer](ritel-pintar-packet-tracer/Topologi-Jaringan.png)
+
 *(Tambahkan penjelasan singkat 1-2 kalimat di bawah gambar jika perlu)*
 
 ---
